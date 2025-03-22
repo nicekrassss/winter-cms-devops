@@ -77,7 +77,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: docker run --rm ghcr.io/${{ github.repository }}:latest php artisan test --no-interaction
+        run: docker run --rm winter-cms-devops:latest php artisan test --no-interaction
 
   deploy:
     runs-on: ubuntu-latest
