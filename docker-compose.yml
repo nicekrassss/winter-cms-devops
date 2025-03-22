@@ -1,5 +1,6 @@
 services:
   web:
+    image: ghcr.io/nicekrassss/winter-cms-devops:latest
     build: .
     ports:
       - "8080:80"
