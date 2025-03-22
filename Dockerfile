@@ -17,8 +17,6 @@ RUN git config --global --add safe.directory /var/www/html
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN composer install --dev --optimize-autoloader
-
 RUN chown -R www-data:www-data /var/www/html/storage
 
 EXPOSE 80
