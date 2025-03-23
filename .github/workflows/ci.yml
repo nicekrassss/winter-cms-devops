@@ -23,12 +23,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }} 
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }} 
           restore-keys: |
             ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
-        run: composer install --optimize-autoloader
+        run: composer install --optimize-autoloader --dev
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
