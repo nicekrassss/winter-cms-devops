@@ -33,8 +33,11 @@
 4. Запустите проект с помощью Docker Compose:
  docker-compose up
 > Приложение будет доступно в браузере по адресу: http://localhost:8080
+
 > База данных MySQL будет доступна на порту 3306
+
 > Логи можно просмотреть с помощью команды: ```docker-compose logs```
+
 > Для остановки проекта выполните команду: ```docker-compose down```
 ### Способ 2 (использование готового Docker-образа)
 1. Скачайте образ: ```docker pull ghcr.io/nicekrassss/winter-cms-devops:latest```
