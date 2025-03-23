@@ -23,7 +23,7 @@ COPY . /var/www/html
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-RUN composer install  --optimize-autoloader 
+RUN composer install  --optimize-autoloader --no-interaction
 
 RUN git config --global --add safe.directory /var/www/html
 
