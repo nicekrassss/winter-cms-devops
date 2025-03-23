@@ -20,13 +20,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 COPY . /var/www/html
 
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
+RUN composer install  --optimize-autoloader --no-interaction --dev
 
 RUN vendor/bin/phpunit --version
 
-RUN composer install  --optimize-autoloader --no-interaction --dev
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN git config --global --add safe.directory /var/www/html
 
