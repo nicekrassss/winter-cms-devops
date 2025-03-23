@@ -52,7 +52,7 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ github.repository }}:latest .
+        run: docker build --no-cache -t ghcr.io/${{ github.repository }}:latest .
 
       - name: Save Docker image to file
         run: docker save -o /tmp/docker-image.tar ghcr.io/${{ github.repository }}:latest
@@ -84,6 +84,12 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: gd, pdo_mysql, zip, exif
+          tools: composer
 
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader
