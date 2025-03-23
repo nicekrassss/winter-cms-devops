@@ -42,7 +42,9 @@
 
 > База данных MySQL будет доступна на порту 3306
 
-> Grafana будет доступна по адресу: http://localhost:3000
+> Grafana будет доступна по адресу: http://localhost:3000 (логин и пароль: admin/admin)
+
+> Redis после команды: ```docker-compose exec redis redis-cli ping``` Ожидаемый ответ: PONG
 
 > Логи можно просмотреть с помощью команды: ```docker-compose logs```
 
@@ -59,7 +61,9 @@
 
 > База данных MySQL будет доступна на порту 3306
 
-> Grafana будет доступна по адресу: http://localhost:3000
+> Grafana будет доступна по адресу: http://localhost:3000 (логин и пароль: admin/admin)
+
+> Redis после команды: ```docker-compose exec redis redis-cli ping``` Ожидаемый ответ: PONG
 
 > Логи можно просмотреть с помощью команды: ```docker-compose logs```
 
