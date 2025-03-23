@@ -28,7 +28,7 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader
+        run: composer install --optimize-autoloader
 
       - name: Cache npm dependencies
         uses: actions/cache@v4
@@ -74,14 +74,6 @@ jobs:
           MYSQL_DATABASE: winter_test
         ports:
           - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-    env:
-      DB_CONNECTION: mysql
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_DATABASE: winter_test
-      DB_USERNAME: root
-      DB_PASSWORD: root
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -95,9 +87,7 @@ jobs:
   
       - name: Run tests
         run: |
-          docker run -t --rm \
-            --network host \
-            -e DB_CONNECTION=mysql \
+          docker run --rm \
             -e DB_HOST=mysql \
             -e DB_PORT=3306 \
             -e DB_DATABASE=winter_test \
