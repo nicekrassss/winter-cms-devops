@@ -86,7 +86,7 @@ jobs:
             ${{ runner.os }}-composer-
         
       - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader
+        run: composer install --dev --optimize-autoloader
          
       - name: Cache npm dependencies
         uses: actions/cache@v4
@@ -100,7 +100,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: docker run --rm -T ghcr.io/${{ github.repository }}:latest bash -c "php artisan test --no-interaction"
+        run: docker run --rm ghcr.io/${{ github.repository }}:latest php artisan test --no-interaction
 
   deploy:
     runs-on: ubuntu-latest
