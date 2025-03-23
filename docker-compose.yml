@@ -11,8 +11,16 @@ services:
       DB_DATABASE: winter
       DB_USERNAME: root
       DB_PASSWORD: secret
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
     depends_on:
       - db
+      - redis
+
+    networks:
+      - app-network
 
   db:
     image: mysql:5.7
@@ -21,6 +29,29 @@ services:
       MYSQL_DATABASE: winter
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - app-network
 
 volumes:
   db_data:
+  grafana_data:
+
+networks:
+  app-network:
+    driver: bridge

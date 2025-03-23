@@ -83,5 +83,19 @@
             "composer/installers": true,
             "wikimedia/composer-merge-plugin": true
         }
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Backend\\": "modules/backend",
+            "System\\": "modules/system",
+            "Cms\\": "modules/cms",
+            "App\\": "app"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
     }
 }
