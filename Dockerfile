@@ -23,6 +23,9 @@ COPY . /var/www/html
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+
+RUN vendor/bin/phpunit --version
+
 RUN composer install  --optimize-autoloader --no-interaction --dev
 
 RUN git config --global --add safe.directory /var/www/html
