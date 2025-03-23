@@ -100,7 +100,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: docker run --rm ghcr.io/${{ github.repository }}:latest php artisan test --no-interaction
+        run: docker run --rm -T ghcr.io/${{ github.repository }}:latest bash -c "php artisan test --no-interaction"
 
   deploy:
     runs-on: ubuntu-latest
