@@ -31,11 +31,10 @@
 ### Способ 1: Локальный запуск
 1. Клонируйте репозиторий на ваш компьютер: ```git clone https://github.com/nicekrassss/winter-cms-devops.git```
 2. Перейдите в директорию проекта: ```cd winter-cms-devops```
-3. Настройка переменных окружения:
+3. Настройка переменных окружения (если вам нужны кастомные настройки):
     - Создайте файл .env, скопируйте в него содержимое файла .env.example, либо введите команду: ```cp .env.example .env```
-    - Введите команду для автоматической подстановки ключа в файл .env: ```docker-compose run --rm artisan key:generate >> .env```
-    - Или сгенерируйте ключ: ```docker-compose run --rm artisan key:generate --show```, а затем
-    - Скопируйте сгенерированный ключ и вставьте его в файл .env в строку APP_KEY=
+    - Отредактируйте `.env` 
+* Если оставить `.env` пустым — ключ сгенерируется автоматически при первом запуске
 4. Запустите проект с помощью Docker Compose:
  docker-compose up
 > Приложение будет доступно в браузере по адресу: http://localhost:8080
@@ -52,7 +51,10 @@
 
 ### Способ 2: Использование готового Docker-образа
 1. Скачайте образ: ```docker pull ghcr.io/nicekrassss/winter-cms-devops:latest```
-2. Запустите образ: ```docker run -p 8080:80 ghcr.io/nicekrassss/winter-cms-devops:latest ``` или ```docker run -p 8080:80 -v "${pwd}\.env:/var/www/html/.env" ghcr.io/nicekrassss/winter-cms-devops:latest``` (если нужно монирование .env при запуске контейнера)
+2. Запустите образ: 
+ - Без своего `.env` (ключ создастся автоматически): ```docker run -p 8080:80 ghcr.io/nicekrassss/winter-cms-devops:latest```
+ - Со своим `.env` (если нужны свои настройки): ```docker run -p 8080:80 -v "$(pwd)/.env:/var/www/html/.env" ghcr.io/nicekrassss/winter-cms-devops:latest```
+
 > На этом этапе приложение будет доступно по адресу: http://localhost:8080, база данных будет не доступна.  
 
 > Для ее активации скачайте из репозитория файл [docker-compose.yml](docker-compose.yml) в вашу локальную директорию
