@@ -116,11 +116,11 @@
     - Перезапустите проект: ```docker-compose up```
 5. Обновление Grafana и Redis
     1. Для изменения Dashboard Grafana:
-        Способ 1:
+        1. Способ 1:
         - Экспортируйте файл [redis_dashboard.json](redis_dashboard.json) 
         - Измените строчку ```"uid": "redis_monitoring_v2"``` (в кавычках укажите, например, новое название Dashboard)
         - Dashboard появится у вас в Grafana
-        Способ 2:
+        2. Способ 2:
         - Экспортируйте текущий Dashboard через JSON Model
         - Внесите изменения в JSON-файл
         - Импортируйте обновленный Dashboard в Grafana
