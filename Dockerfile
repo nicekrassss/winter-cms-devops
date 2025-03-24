@@ -1,7 +1,5 @@
 FROM php:8.2-apache
 
-WORKDIR /var/www/html
-
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -20,23 +18,23 @@ RUN apt-get update && apt-get install -y \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+WORKDIR /var/www/html
+
 COPY composer.json composer.lock ./
 
 RUN composer install --optimize-autoloader --no-interaction --dev 
-RUN echo "После composer install:" && ls -la vendor/bin
-
-COPY . .
-RUN echo "После копирования проекта:" && ls -la vendor/bin
 
 RUN composer require --dev phpunit/phpunit:^9.5.8
+RUN ls -la vendor/bin/ && test -f vendor/bin/phpunit && vendor/bin/phpunit --version
 
-RUN ls -la vendor/bin && vendor/bin/phpunit --version
+COPY . .
+
+RUN chown -R www-data:www-data storage \
+    && chmod +x vendor/bin/phpunit \
+    && git config --global --add safe.directory /var/www/html
 
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
-    chmod +x vendor/bin/phpunit && \
-    git config --global --add safe.directory /var/www/html && \
-    chown -R www-data:www-data storage 
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh 
 
 EXPOSE 80
 CMD ["apache2-foreground"]

@@ -1,4 +1,7 @@
 vendor/
 node_modules/
 .env
-docker-compose.yml
+*.log
+*.cache
+.DS_Store
+.idea
