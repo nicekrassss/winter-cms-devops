@@ -89,7 +89,11 @@ jobs:
         run: composer install --dev --optimize-autoloader
 
       - name: Check phpunit in Docker container
-        run: docker run --rm ghcr.io/${{ github.repository }}:latest vendor/bin/phpunit --version
+        run: |
+          docker run --rm ghcr.io/${{ github.repository }}:latest pwd
+          docker run --rm ghcr.io/${{ github.repository }}:latest ls -la vendor/bin
+          docker run --rm ghcr.io/${{ github.repository }}:latest vendor/bin/phpunit --version
+        
          
       - name: Cache npm dependencies
         uses: actions/cache@v4
