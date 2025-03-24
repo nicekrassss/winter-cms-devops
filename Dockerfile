@@ -20,9 +20,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www/html
 
-COPY composer.json composer.lock ./
+COPY composer.json ./
 
-RUN composer install --no-scripts --no-interaction --optimize-autoloader
+RUN composer update --no-scripts --no-interaction --optimize-autoloader
 
 COPY . .
 
