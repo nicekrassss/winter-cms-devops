@@ -24,9 +24,12 @@ COPY composer.json ./
 
 RUN composer update --no-scripts --no-interaction --optimize-autoloader
 
-COPY .env ./
-
 COPY . .
+
+RUN if [ ! -f .env ]; then \
+      cp .env.example .env; \
+      php artisan key:generate; \
+    fi
 
 RUN composer require --dev phpunit/phpunit:^9.5.8 --no-scripts
 RUN composer run-script post-install-cmd
