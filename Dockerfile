@@ -24,6 +24,8 @@ COPY composer.json ./
 
 RUN composer update --no-scripts --no-interaction --optimize-autoloader
 
+COPY .env ./
+
 COPY . .
 
 RUN composer require --dev phpunit/phpunit:^9.5.8 --no-scripts
