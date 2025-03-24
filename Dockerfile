@@ -22,12 +22,13 @@ WORKDIR /var/www/html
 
 COPY composer.json composer.lock ./
 
-RUN composer install --optimize-autoloader --no-interaction --dev 
-
-RUN composer require --dev phpunit/phpunit:^9.5.8
-RUN ls -la vendor/bin/ && test -f vendor/bin/phpunit && vendor/bin/phpunit --version
+RUN composer install --no-scripts --no-interaction --optimize-autoloader
 
 COPY . .
+
+RUN composer require --dev phpunit/phpunit:^9.5.8 --no-scripts
+RUN composer run-script post-install-cmd
+RUN test -f vendor/bin/phpunit && vendor/bin/phpunit --version
 
 RUN chown -R www-data:www-data storage \
     && chmod +x vendor/bin/phpunit \
