@@ -23,19 +23,20 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY composer.json composer.lock ./
 
 RUN composer install --optimize-autoloader --no-interaction --dev 
-
-RUN composer require --dev phpunit/phpunit
+RUN echo "После composer install:" && ls -la vendor/bin
 
 COPY . .
+RUN echo "После копирования проекта:" && ls -la vendor/bin
 
-RUN ls -la vendor/bin && /var/www/html/vendor/bin/phpunit --version
+RUN composer require --dev phpunit/phpunit:^9.5.8
+
+RUN ls -la vendor/bin && vendor/bin/phpunit --version
 
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-RUN chmod +x /var/www/html/vendor/bin/phpunit && \
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    chmod +x vendor/bin/phpunit && \
     git config --global --add safe.directory /var/www/html && \
-    chown -R www-data:www-data /var/www/html/storage 
+    chown -R www-data:www-data storage 
 
 EXPOSE 80
 CMD ["apache2-foreground"]
