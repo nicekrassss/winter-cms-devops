@@ -24,9 +24,11 @@ COPY composer.json composer.lock ./
 
 RUN composer install --optimize-autoloader --no-interaction --dev 
 
+RUN composer require --dev phpunit/phpunit
+
 COPY . .
 
-RUN ls -la vendor/bin && vendor/bin/phpunit --version
+RUN ls -la vendor/bin && /var/www/html/vendor/bin/phpunit --version
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
